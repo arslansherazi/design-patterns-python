@@ -1,5 +1,6 @@
 """
-Instead of creating products(instances) directly from the machines/units(classes), ask factory(factory class) to create the product(instance)
+Instead of creating products(instances) directly from the machines/units(classes), ask factory(factory class) to create
+the products(instances)
 """
 from abc import ABCMeta, abstractmethod
 from enum import Enum
@@ -22,7 +23,7 @@ class AbstractFactory(metaclass=ABCMeta):
         pass
 
 
-# Machine Factory
+# Machines Factory
 class MachineFactory(AbstractFactory):
     def create_object(self, type, level):
         if type == MachineType.MachineA:
@@ -33,7 +34,7 @@ class MachineFactory(AbstractFactory):
             assert 0, 'Invalid Machine Type'
 
 
-# Product Factory
+# Products Factory
 class ProductFactory(AbstractFactory):
     def create_object(self, type, level):
         if type == ProductType.ProductA:
