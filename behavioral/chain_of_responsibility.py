@@ -7,8 +7,8 @@ from abc import ABCMeta, abstractmethod
 
 
 class Logger(metaclass=ABCMeta):
-    def __init__(self, message):
-        self.message = message
+    def __init__(self, logging_message: str):
+        self.logging_message = logging_message
         self.next = None
 
     def set_next(self, next_fn):
@@ -26,22 +26,22 @@ class Logger(metaclass=ABCMeta):
 
 class FileLogger(Logger):
     def handler(self):
-        print(f'This is file logger: {self.message}')
+        print(f'This is file logger: {self.logging_message}')
 
 
 class ServerLogger(Logger):
     def handler(self):
-        print(f'This is server logger: {self.message}')
+        print(f'This is server logger: {self.logging_message}')
 
 
 class ScreenLogger(Logger):
     def handler(self):
-        print(f'This is screen logger: {self.message}')
+        print(f'This is screen logger: {self.logging_message}')
 
 
 class AlarmLogger(Logger):
     def handler(self):
-        print(f'This is alarm logger: {self.message}')
+        print(f'This is alarm logger: {self.logging_message}')
 
 
 if __name__ == '__main__':
