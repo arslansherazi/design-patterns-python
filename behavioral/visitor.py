@@ -3,8 +3,8 @@
   group of similar kind of Objects. With the help of visitor pattern, we can move the operational logic from the objects
   to another class.
 - The visitor pattern consists of two parts:
-    1. a method called Visit() which is implemented by the visitor and is called for every element in the data structure
-    2. visitable classes providing Accept() methods that accept a visitor
+    1. a method called visit() which is implemented by the visitor and is called for every element in the data structure
+    2. visitable classes providing accept() methods that accept a visitor
 """
 from abc import ABCMeta, abstractmethod
 
@@ -17,7 +17,8 @@ class Item(metaclass=ABCMeta):
 
 
 class Book(Item):
-    def __init__(self, book_id: str, price: int):
+    def __init__(self, book_id: str, price: int, quantity: int):
+        self.quantity = quantity
         self.book_id = book_id
         self.price = price
 
@@ -41,14 +42,21 @@ class Visitor(metaclass=ABCMeta):
         pass
 
 
-class ShoppingCartVisitor(Visitor):
-    def visit(self, item: Item):
-        print(item.__dict__)
+class BookVisitor(Visitor):
+    def visit(self, book: Book):
+        total_price = book.quantity * book.price
+        print(f'Book ID: {book.book_id}, Quantity: {book.quantity}, Total Price: {total_price}')
+
+
+class FruitVisitor(Visitor):
+    def visit(self, fruit: Fruit):
+        total_price = fruit.price_per_kg * fruit.weight
+        print(f'Fruit Name: {fruit.name}, Fruit weight: {fruit.weight}, Total Price: {total_price}')
 
 
 if __name__ == '__main__':
-    book = Book(book_id='ENG349', price=2000)
+    book = Book(book_id='ENG349', price=2000, quantity=5)
     fruit = Fruit(name='Mango', price_per_kg=200, weight=10)
 
-    book.accept(visitor=ShoppingCartVisitor())
-    fruit.accept(visitor=ShoppingCartVisitor())
+    book.accept(visitor=BookVisitor())
+    fruit.accept(visitor=FruitVisitor())
